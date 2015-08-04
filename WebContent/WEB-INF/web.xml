@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!--==============================================================================-->
+<!-- 배포설명자 : 애플리케이션을 배포하는 방법을 웹컨테이너(톰캣)에게 지시-->
+<!--==============================================================================-->
+<web-app 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" 
+metadata-complete="false" version="3.1">
+<!--==============================================================================-->
+<!--웹애플리케이션의 이름 ?? 웹애플리케이션을 사용하기 위한 이름??  -->
+<!--==============================================================================-->  
+  <display-name>Welcome to Tomcat</display-name>
+<!--==================================================================--> 
+<!-- 웹애플리케이션에 대한 설명 -->
+<!--==================================================================--> 
+  <description>
+     Welcome to Tomcat
+  </description>
+<!--==================================================================-->
+<!--==================================================================-->  
+<filter>
+	<filter-name>springSecurityFilterChain</filter-name>
+	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>springSecurityFilterChain</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>
+<!--==================================================================-->
+<!--==================================================================-->  
+  <filter>
+  	<filter-name>characterEncodingFilter</filter-name>
+  	<filter-class>com.newlecture.filter.CharacterEncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>UTF-8</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>characterEncodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping> 
+<!--==================================================================-->
+<!--==================================================================-->  
+<!--  사용할 서블릿 지정 -->
+ <servlet>   
+  <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>  
+     <!-- 서블릿context 위치 설정 -->  
+    <init-param>
+    	<param-name>contextConfigLocation</param-name>
+    	<param-value>/WEB-INF/spring/servlet-context.xml</param-value>
+    </init-param>
+    <!-- 웹애플리케이션이 시작될때 즉시 서블릿이 시작하도록 설정 -->
+    <load-on-startup>1</load-on-startup>
+ </servlet>
+ 
+  <!-- 매핑된것만 연결  -->
+ <servlet-mapping>
+ 	<servlet-name>dispatcher</servlet-name>
+ 	<url-pattern>/</url-pattern>
+ </servlet-mapping> 
+<!--==================================================================--> 
+<!-- 추가적인 spring context 파일 목록 설정 -->
+<!--==================================================================-->
+<listener>
+	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>	
+</listener>
+<context-param>
+	<param-name>contextConfigLocation</param-name>
+	<param-value>
+		/WEB-INF/spring/service-context.xml
+		/WEB-INF/spring/security-context.xml
+	</param-value>
+</context-param>
+<!--==================================================================-->
+<!--==================================================================-->
+ <!-- 서블릿이 어떤 URL요청에 반응해야 하는지 지정 -->
+ 
+
+
+<servlet>   
+   <servlet-name>jy</servlet-name>
+    <servlet-class>com.freestyle.web.dao.myBatis.SqlFreeStyleSessionFactory</servlet-class>
+ <load-on-startup>1</load-on-startup>
+    
+</servlet>
+  
+<!--==================================================================-->  
+<!-- 처음 화면에 출력될 페이지-->
+<!--==================================================================-->
+  <welcome-file-list>
+    <welcome-file>NewFile.html</welcome-file>
+  </welcome-file-list>
+<!--==================================================================-->
+<!--==================================================================-->
+</web-app>
+<!--==================================================================-->
+<!--==================================================================-->
+<!--==================================================================-->

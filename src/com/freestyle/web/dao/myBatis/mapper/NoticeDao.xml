@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper    
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.freestyle.web.dao.NoticeDao">
+	
+	<select id="getNotices" resultType="com.freestyle.web.vo.Notice">
+		SELECT * FROM NOTICEVIEW ORDER BY regDate DESC
+	</select>
+	
+	<select id="getNotice" parameterType="String" resultType="com.freestyle.web.vo.Notice">
+		SELECT * FROM NOTICEVIEW WHERE CODE=#{code}
+	</select>
+	
+	<select id="getLastCode" resultType="String">
+		SELECT ISNULL(MAX(CAST(CODE AS INT)),0) CODE FROM NOTICES
+	</select>
+	
+	<insert id="addNotice" parameterType="com.freestyle.web.vo.Notice">
+	<selectKey keyProperty="code" resultType="STRING" order="BEFORE">
+    SELECT ISNULL(MAX(CAST(CODE AS INT)),0)+1 CODE FROM NOTICES
+	</selectKey>
+		INSERT INTO NOTICES(CODE,TITLE, WRITER, CONTENT) 
+		VALUES(#{code}, #{title}, #{writer}, #{content})		
+	</insert>
+
+</mapper>

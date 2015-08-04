@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+/* h1, h2, li, a
+	{color:red;} */
+	
+	/* .h1
+	{color:yellow;} */
+	
+	/*  h1.hi
+	{color:green;} 
+	.copyRight
+	{color:purple;} */
+	/* #main-menu
+	{color: blue;}
+	 */
+	/*  section[class]
+	 {color:yellow;} */
+	/*  input[value="a"]
+	 {color:pink;} */
+	 /* header > section.h1 > nav + nav
+	 {color:red; font-weight:bold;} */
+	 #lecture-search-form input[type="text"]	 
+	 {color:red; font-weight:bold;}
+	 
+	 #main-menu a
+	 {color:green; font-weight:bold;}
+	 
+	 #main-menu li:FIRST-CHILD+li a 
+	 {color:pink; font-weight:bold;}
